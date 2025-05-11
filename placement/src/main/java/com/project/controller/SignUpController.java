@@ -36,6 +36,11 @@ public class SignUpController {
             model.addAttribute("error", "Email already registered");
             return "student-signup"; // Redirect to sign-up page on error
         }
+     // Set default CGPA if it's null (you can choose a default value or keep it null)
+        if (student.getCgpa() == null) {
+            student.setCgpa(null);  // You can set a default value if needed, like 0.0
+        }
+        
         student.setRole("STUDENT"); // Assign role 'STUDENT' here
         studentService.createStudent(student);
         return "redirect:/login"; // Redirect to login after successful signup

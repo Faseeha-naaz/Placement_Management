@@ -35,7 +35,7 @@ public class Application {
     private ApplicationStatus status; // "APPLIED", "UNDER_REVIEW", "REJECTED", etc.
 
     @Column(nullable = false)
-    private double cgpa;
+    private Double cgpa;
 
     @Column(length = 255)
     private String collegeName;
@@ -77,8 +77,8 @@ public class Application {
     public ApplicationStatus getStatus() { return status; }
     public void setStatus(ApplicationStatus status) { this.status = status; }
 
-    public double getCgpa() { return cgpa; }
-    public void setCgpa(double cgpa) { this.cgpa = cgpa; }
+    public Double getCgpa() { return cgpa; }
+    public void setCgpa(Double cgpa) { this.cgpa = cgpa; }
 
     public String getCollegeName() { return collegeName; }
     public void setCollegeName(String collegeName) { this.collegeName = collegeName; }

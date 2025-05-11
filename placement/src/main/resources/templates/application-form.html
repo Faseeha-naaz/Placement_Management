@@ -106,9 +106,9 @@
             <label for="joiningDate">Joining Date:</label>
             <input type="date" th:field="*{joiningDate}" required /><br/><br/>
 
-            <!-- CGPA -->
-            <label for="cgpa">CGPA:</label>
-            <input type="number" th:field="*{cgpa}" placeholder="Enter your CGPA" step="0.01" min="0" max="10" required /><br/><br/>
+            <!-- CGPA (Editable field for students to enter) -->
+			<label for="cgpa">CGPA:</label>
+			<input type="number" th:field="*{cgpa}" placeholder="Enter your CGPA" step="0.01" min="1" max="10" required />
 
             <!-- Why Hire Me -->
             <label for="whyHireMe">Why should we hire you?</label>

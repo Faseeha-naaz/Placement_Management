@@ -80,20 +80,22 @@
     <h1>Applications List</h1>
     <table>
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Student Name</th>
-                <th>Email</th>
-                <th>College Name</th>
-                <th>CGPA</th>
-                <th>Skills</th>
-                <th>Why Hire Me</th>
-                <th>Address</th>
-                <th>Joining Date</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Updation</th> <!-- New column for status update -->
-            </tr>
+			<tr>
+			    <th>ID</th>
+			    <th>Student Name</th>
+			    <th>Email</th>
+			    <th>College Name</th>
+			    <th>CGPA</th>
+			    <th>Skills</th>
+			    <th>Why Hire Me</th>
+			    <th>Address</th>
+			    <th>Joining Date</th>
+			    <th>Location</th>
+			    <th>Company</th> <!-- New -->
+			    <th>Status</th>
+			    <th>Updation</th>
+			</tr>
+
         </thead>
         <tbody>
             <tr th:each="app : ${applications}">
@@ -107,6 +109,8 @@
                 <td th:text="${app.address}"></td> <!-- Address -->
                 <td th:text="${app.joiningDate}"></td> <!-- Joining Date -->
                 <td th:text="${app.location}"></td> <!-- Location -->
+				<td th:text="${app.job.company}"></td> <!-- New -->
+
                 <td th:text="${app.status}"></td> <!-- Current application status -->
                 <td>
                     <form th:action="@{/admin/applications/{id}/update-status(id=${app.id})}" method="post">

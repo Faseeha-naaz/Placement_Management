@@ -35,7 +35,7 @@ public class Student {
     private String role; // ✅ Added role field
 
     @Column(nullable = false)
-    private double cgpa;  // Added CGPA field
+    private Double cgpa = 0.0;  // Added CGPA field
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Application> applications;
@@ -89,11 +89,11 @@ public class Student {
         this.role = role;
     }
 
-    public double getCgpa() {
+    public Double getCgpa() {
         return cgpa;
     }
 
-    public void setCgpa(double cgpa) {
+    public void setCgpa(Double cgpa) {
         this.cgpa = cgpa;
     }
 
