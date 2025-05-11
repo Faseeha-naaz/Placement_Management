@@ -64,16 +64,22 @@ public class ApplicationController {
         Student student = (Student) session.getAttribute("loggedInStudent");
 
         if (student == null) {
-            return "redirect:/login"; // Redirect to login page if student is not logged in
+            return "redirect:/login";  // Redirect to login if not logged in
         }
 
         Application application = new Application();
         application.setJob(job);
+        application.setName(student.getName());
+        application.setEmail(student.getEmail());
+        application.setCollegeName(""); // Set empty string to allow manual input of college name
+        application.setCgpa(null); // Set CGPA to null to allow manual entry
+
         model.addAttribute("applicationForm", application);
-        model.addAttribute("student", student); // Pass student details for form submission
+        model.addAttribute("student", student);
 
         return "application-form"; // Display the application form
     }
+
 
     // Handle application form submission
     @PostMapping("/apply")
@@ -90,6 +96,16 @@ public class ApplicationController {
         Job job = jobRepository.findById(application.getJob().getId())
             .orElseThrow(() -> new RuntimeException("Job not found"));
 
+        // Ensure CGPA is captured from the form and update student's CGPA
+        if (application.getCgpa() != null && application.getCgpa() > 0) {
+            student.setCgpa(application.getCgpa());  // Update student's CGPA based on the application form
+            studentRepository.save(student);  // Save the updated student object with new CGPA
+        } else {
+            model.addAttribute("message", "Please enter a valid CGPA.");
+            model.addAttribute("applicationForm", application);
+            return "application-form";
+        }
+
         Application existingApplication = applicationRepository.findByJobAndStudent(job, student);
         if (existingApplication != null) {
             model.addAttribute("message", "You have already applied for this job.");
@@ -97,16 +113,13 @@ public class ApplicationController {
             return "application-form";
         }
 
-        System.out.println("CGPA being set: " + student.getCgpa());
-
         application.setStudent(student);
         application.setJob(job);
-        application.setCgpa(student.getCgpa());
         application.setStatus(ApplicationStatus.APPLIED);
 
+        // Save the application
         applicationRepository.save(application);
 
-        return "redirect:/job-listings";
+        return "redirect:/job-listings"; // Redirect to job listings page after successful application
     }
-
 }
